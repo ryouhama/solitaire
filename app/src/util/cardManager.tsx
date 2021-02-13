@@ -20,6 +20,6 @@ const getAllSuit = (): ISuit[] => {
   return ['heart', 'clover', 'spade', 'diamond'];
 };
 
-export const getCardImgPath = (card :ICard) => {
+export const getCardImgPath = (card :ICard): string => {
   return `${PUBLIC_URL}/image/card/${card.suit}/${card.number}.png`
 };

@@ -10,6 +10,6 @@ export const CardLayoutPresenter: React.FC<ICardLayoutPresenter> = (props) => {
   const cardPath = getCardImgPath(card);
 
   return (
-    <img src={cardPath} alt={`${card.suit}-${card.number}`}></img>
+    <img src={cardPath} alt={`${card.suit}-${card.number}`} />
   );
 }

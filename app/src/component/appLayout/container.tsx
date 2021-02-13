@@ -5,7 +5,7 @@ interface IAppLayout {
   children?: React.ReactNode;
 };
 
-export const AppLayout: React.FC<IAppLayout> = (props: IAppLayout) => {
+export const AppLayout: React.FC<IAppLayout> = (props) => {
   const { children } = props;
   return (
     <AppLayoutPresenter>

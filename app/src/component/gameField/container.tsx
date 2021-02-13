@@ -6,7 +6,7 @@ interface IGameField {
   children?: React.ReactNode;
 };
 
-export const GameField: React.FC<IGameField> = (props: IGameField) => {
+export const GameField: React.FC<IGameField> = () => {
   const createCard = (): ICard[] => {
     return createCardList();
   };

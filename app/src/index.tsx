@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import { AppLayout } from './component/appLayout';
+import { GameField } from './component/gameField';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AppLayout>
+      <p>this is children</p>
+      <GameField />
+    </AppLayout>
   </React.StrictMode>,
   document.getElementById('root')
 );

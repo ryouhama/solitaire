@@ -1,1 +1,1 @@
-export { CardLayout as Card } from './container'
+export { CardLayout as Card } from './container';

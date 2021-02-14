@@ -1,1 +1,1 @@
-export { GameField } from './container'
+export { GameField } from './container';

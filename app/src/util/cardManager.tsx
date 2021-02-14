@@ -2,7 +2,7 @@ import { ICard, ISuit } from 'type/card';
 
 
 const CARD_NUMBER = 13;
-const PUBLIC_URL = `${process.env.PUBLIC_URL}`;
+export const PUBLIC_URL = `${process.env.PUBLIC_URL}`;
 
 export const createCardList = (): ICard[] => {
   let cardList: ICard[] = [];

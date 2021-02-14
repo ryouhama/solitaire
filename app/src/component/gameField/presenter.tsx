@@ -15,7 +15,7 @@ export const GameFieldPresenter: React.FC<IGameFieldPresenter> = (props) => {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr',
     gridTemplateLows: '1fr auto'
-  }
+  };
   const sortedCards = patienceSort(randomSort(cards));
 
   const renderCardsOnTable = (index: number, cards: ICard[]) => {
@@ -36,7 +36,7 @@ export const GameFieldPresenter: React.FC<IGameFieldPresenter> = (props) => {
   };
 
   return (
-    <div style={style}>
+    <div className='game-field' style={style}>
       <div className='foundation-pile'>
         <p>foundation-pile-space</p>
       </div>

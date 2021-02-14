@@ -4,7 +4,8 @@ import { getCardImgPath} from 'util/cardManager';
 
 interface ICardLayoutPresenter {
   card: ICard;
-}
+};
+
 export const CardLayoutPresenter: React.FC<ICardLayoutPresenter> = (props) => {
   const { card } = props;
   const cardPath = getCardImgPath(card);

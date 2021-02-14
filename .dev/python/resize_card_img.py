@@ -22,8 +22,8 @@ log_bar = '-----'
 img_size = {'vertical': 201, 'wide': 142}
 
 def main() -> None:
-    argv_l_or_s_settig, argv_magnification = get_argv()
-    l_or_s_settig, magnification = validate(argv_l_or_s_settig, argv_magnification)
+    argv_l_or_s_settig, argv_magnification, argv_resize_default_size = get_argv()
+    l_or_s_settig, magnification = validate(argv_l_or_s_settig, argv_magnification, argv_resize_default_size)
     logging.info(log_bar * 6)
     logging.info(f'start card_img_resize')
     logging.info(f'l_or_s_settig: {l_or_s_settig}')
@@ -34,13 +34,14 @@ def main() -> None:
     logging.info(f'end card_img_resize')
     logging.info(log_bar * 6)
 
-def get_argv() -> Tuple[str, str]:
+def get_argv() -> Tuple[str, str, str]:
     len_argv = len(sys.argv)
     argv1 = sys.argv[1] if len_argv >= 2 and sys.argv[1] else ''
     argv2 = sys.argv[2] if len_argv >= 3 and sys.argv[2] else ''
+    argv3 = sys.argv[3] if len_argv >= 4 and sys.argv[3] else ''
     return argv1, argv2
 
-def validate(argv_l_or_s_settig: str, argv_magnification: str) -> Tuple[str, int, str]:
+def validate(argv_l_or_s_settig: str, argv_magnification: str, argv_resize_default_size: str) -> Tuple[str, int, str]:
     l_or_s_settig = 's' # default
     magnification = 1 # default
     is_resize_default_size = False # default

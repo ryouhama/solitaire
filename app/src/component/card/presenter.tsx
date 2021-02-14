@@ -19,6 +19,6 @@ export const CardLayoutPresenter: React.FC<IProps> = (props) => {
   };
 
   return (
-    <img src={cardPath} alt={`${card.suit}-${card.number}`} style={style}/>
+    <img src={cardPath} alt={`${card.suit}-${card.number}`} key={`${card.suit}-${card.number}`} style={style}/>
   );
 };

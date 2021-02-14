@@ -3,6 +3,7 @@ import { ICard, ISuit } from 'type/card';
 
 const CARD_NUMBER = 13;
 const DISP_TABLE_PILES_COUNT = 7;
+const TABLE_PILES_CARD_TOTAL_COUNT = 28;
 const PUBLIC_URL = `${process.env.PUBLIC_URL}`;
 
 export const createCardList = (): ICard[] => {
@@ -28,6 +29,14 @@ export const getCardImgPath = (card :ICard): string => {
 
 export const getBackSideCardImgPath = (): string => {
   return `${PUBLIC_URL}/image/card/back-side-card.png`;
+};
+
+export const getDeckAndTableCards = (cards: ICard[]): {'tablePile': ICard[][], 'deck': ICard[]} => {
+  const randomSortedCards = randomSort(cards);
+  // devide deck and table cards
+  const deck = randomSortedCards.splice(TABLE_PILES_CARD_TOTAL_COUNT);
+  const patienceSorted = patienceSort(randomSortedCards);
+  return {'tablePile': patienceSorted, 'deck': deck};
 };
 
 export const patienceSort = (cards: ICard[]): ICard[][] => {

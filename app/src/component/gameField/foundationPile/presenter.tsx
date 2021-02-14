@@ -5,7 +5,7 @@ export const FoundationPilePresenter: React.FC = () => {
     gridRowStart: 1,
     gridRowEnd: 2,
     gridColumnStart: 1,
-    gridColumnEnd: 4
+    gridColumnEnd: 6
   };
   return (
     <div className='foundation-pile' style={styleOfFoundationPile}>

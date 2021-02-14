@@ -1,19 +1,17 @@
 import React from 'react';
 import { ICard } from 'type/card';
-import { patienceSort, randomSort} from 'util/cardManager';
 import { TablePilePresenter } from './presenter';
 
 interface IProps {
-  cards: ICard[];
+  tablePileCards: ICard[][];
 };
 
 export const TablePile: React.FC<IProps> = (props) => {
-  const { cards } = props;
-  const patienceSortedCards = patienceSort(randomSort(cards));
+  const { tablePileCards } = props;
 
   return (
     <TablePilePresenter
-      patienceSortedCards={patienceSortedCards}
+      patienceSortedCards={tablePileCards}
     />
   );
 };

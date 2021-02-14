@@ -36,14 +36,13 @@ export const TablePilePresenter: React.FC<IProps> = (props) => {
             <>
             {idx === 0 ? (
               <Card
-                key={`${card.suit}-${card.number}`}
                 card={card}
                 zIndex={cardsLength}
                 top={cardsLength*20}
               />
               ) : (
                 <BackSideCard
-                  key={`${card.suit}-${card.number}`}
+                  card={card}
                   zIndex={idx}
                   top={idx * 20}
                 />

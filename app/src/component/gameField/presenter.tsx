@@ -7,15 +7,16 @@ import { TablePile } from './tablePile';
 // import 'style/card.css';
 
 interface IGameFieldPresenter {
-  cards: ICard[];
+  deck: ICard[];
+  tablePileCards: ICard[][];
 };
 
 export const GameFieldPresenter: React.FC<IGameFieldPresenter> = (props) => {
-  const { cards } = props;
+  const { deck, tablePileCards } = props;
   const styleOfGameField = {
     display: 'grid',
     // grid layout
-    gridTemplateColumns: `100px ${CARD_WIDTH_PX}px ${CARD_WIDTH_PX}px ${CARD_WIDTH_PX}px ${CARD_WIDTH_PX}px ${CARD_WIDTH_PX}px ${CARD_WIDTH_PX}px ${CARD_WIDTH_PX}px 1fr`,
+    gridTemplateColumns: `50px ${CARD_WIDTH_PX}px ${CARD_WIDTH_PX}px ${CARD_WIDTH_PX}px ${CARD_WIDTH_PX}px ${CARD_WIDTH_PX}px ${CARD_WIDTH_PX}px ${CARD_WIDTH_PX}px 1fr`,
     gridTemplateRows: `${CARD_HEIGHT_PX + 10}px ${CARD_HEIGHT_PX*5}px`,
     backgroundColor: '#008000'
   };
@@ -23,9 +24,11 @@ export const GameFieldPresenter: React.FC<IGameFieldPresenter> = (props) => {
   return (
     <div className='game-field' style={styleOfGameField}>
       <FoundationPile/>
-      <Deck/>
+      <Deck
+        deck={deck}
+      />
       <TablePile
-        cards={cards}
+        tablePileCards={tablePileCards}
       />
     </div>
   );

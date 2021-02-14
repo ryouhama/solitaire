@@ -9,4 +9,4 @@ export const AppLayoutPresenter: React.FC = (props) => {
       {children}
     </>
   );
-}
+};

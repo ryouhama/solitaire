@@ -2,7 +2,8 @@ import { ICard, ISuit } from 'type/card';
 
 
 const CARD_NUMBER = 13;
-export const PUBLIC_URL = `${process.env.PUBLIC_URL}`;
+const DISP_TABLE_PILES_COUNT = 7;
+const PUBLIC_URL = `${process.env.PUBLIC_URL}`;
 
 export const createCardList = (): ICard[] => {
   let cardList: ICard[] = [];
@@ -22,16 +23,19 @@ const getAllSuit = (): ISuit[] => {
 };
 
 export const getCardImgPath = (card :ICard): string => {
-  return `${PUBLIC_URL}/image/card/${card.suit}/${card.number}.png`
+  return `${PUBLIC_URL}/image/card/${card.suit}/${card.number}.png`;
+};
+
+export const getBackSideCardImgPath = (): string => {
+  return `${PUBLIC_URL}/image/card/back-side-card.png`;
 };
 
 export const patienceSort = (cards: ICard[]): ICard[][] => {
-  var sortedArray = [];
-  for (var index=0, slicedNum=0; index < 7; cards) {
+  let sortedArray = [];
+  for (let index = 0, slicedNum = 0; index < DISP_TABLE_PILES_COUNT; index++) {
     const slicedCards = cards.slice(slicedNum, slicedNum+index+1);
     sortedArray.push(slicedCards);
-    slicedNum += (index+1);
-    index++;
+    slicedNum += index + 1;
   }
   return sortedArray;
 };

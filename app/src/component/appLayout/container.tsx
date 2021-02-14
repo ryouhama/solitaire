@@ -12,4 +12,4 @@ export const AppLayout: React.FC<IAppLayout> = (props) => {
       {children}
     </AppLayoutPresenter>
   );
-}
+};

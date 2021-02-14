@@ -11,4 +11,4 @@ export const GameField: React.FC = () => {
       cards={allCards}
     />
   );
-}
+};

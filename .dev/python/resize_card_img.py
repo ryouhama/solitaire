@@ -1,7 +1,7 @@
 import glob
-import logging
 import os
 import sys
+from logging import getLogger
 from PIL import Image
 from typing import Any, List, Tuple
 
@@ -18,22 +18,26 @@ from typing import Any, List, Tuple
 #-------------------------------------------------------
 card_dir = 'app/public/image/card'
 suit_list = ['heart', 'clover', 'spade', 'diamond']
-log_bar = '-----'
 img_size = {'vertical': 201, 'wide': 142}
+logger = getLogger(__name__)
 
 def main() -> None:
     argv_l_or_s_settig, argv_magnification, argv_resize_default_size = get_argv()
+
+    logger.info(f'argv_l_or_s_settig: {argv_l_or_s_settig}')
+    logger.info(f'argv_magnification: {argv_magnification}')
+    logger.info(f'argv_resize_default_size: {argv_resize_default_size}')
+
     l_or_s_settig, magnification, resize_default_size = \
         validate(argv_l_or_s_settig, argv_magnification, argv_resize_default_size)
-    logging.info(log_bar * 6)
-    logging.info(f'start card_img_resize')
-    logging.info(f'l_or_s_settig: {l_or_s_settig}')
-    logging.info(f'magnification: {magnification}')
-    logging.info(log_bar * 6)
-    resize_all_img(l_or_s_settig, magnification)
-    logging.info(log_bar * 6)
-    logging.info(f'end card_img_resize')
-    logging.info(log_bar * 6)
+
+    logger.info(f'start card_img_resize')
+    logger.info(f'l_or_s_settig: {l_or_s_settig}')
+    logger.info(f'magnification: {magnification}')
+
+    resize_all_img(l_or_s_settig, magnification, resize_default_size)
+
+    logger.info(f'end card_img_resize')
 
 def get_argv() -> Tuple[str, str, str]:
     len_argv = len(sys.argv)
@@ -50,26 +54,31 @@ def validate(argv_l_or_s_settig: str, argv_magnification: str, argv_resize_defau
     # large_or_small_setting
     if argv_l_or_s_settig and argv_l_or_s_settig in ['l', 's']:
         l_or_s_settig = argv_l_or_s_settig
+        print(l_or_s_settig)
 
     # magnification
     if argv_magnification and argv_magnification.isdigit():
         magnification = int(argv_magnification)
+        print(magnification)
 
     # is_resize_default_size
     if argv_resize_default_size == 'resize_default_size':
         is_resize_default_size = True
+        print(is_resize_default_size)
 
     return l_or_s_settig, magnification, is_resize_default_size
 
-def resize_all_img(l_or_s_settig: str, magnification: int) -> None:
+def resize_all_img(l_or_s_settig: str, magnification: int, is_resize_default_size: bool) -> None:
     resized_image_count = 0
     image_path_list = get_all_image_path_list()
 
-    if magnification > 1:
+    if is_resize_default_size or magnification > 1:
         for path in image_path_list:
             img = Image.open(path)
             # lerge or small
-            if l_or_s_settig == 'l':
+            if is_resize_default_size:
+                img_resize = img.resize((img_size['wide'], img_size['vertical']))
+            elif l_or_s_settig == 'l':
                 img_resize = img.resize((img.width * magnification, img.height * magnification))
             elif l_or_s_settig == 's':
                 img_resize = img.resize((img.width // magnification, img.height // magnification))
@@ -77,15 +86,20 @@ def resize_all_img(l_or_s_settig: str, magnification: int) -> None:
 
             print(f'{path} is saved')
             resized_image_count += 1
-    logging.info(f'resized image count: {resized_image_count}')
+    logger.info(f'resized image count: {resized_image_count}')
 
 def get_image_path_of_suit(suit: str) -> List[str]:
     return glob.glob(f'{card_dir}/{suit}/*.png')
 
 def get_all_image_path_list() -> List[str]:
     ret = []
+    # all card
     for suit in suit_list:
        ret += get_image_path_of_suit(suit)
+    # back-side-card
+    ret.append(f'{card_dir}/back-side-card.png')
+    # set
+    ret.append(f'{card_dir}/set.png')
     return ret
 
 if __name__ == '__main__':

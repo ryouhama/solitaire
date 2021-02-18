@@ -11,8 +11,8 @@ export const DeckPresenter: React.FC<IProps> = (props) => {
   const styleOfDeck = {
     gridRowStart: 1,
     gridRowEnd: 2,
-    gridColumnStart: 7,
-    gridColumnEnd: 8,
+    gridColumnStart: 8,
+    gridColumnEnd: 9,
     position: 'relative' as 'relative'
   };
 

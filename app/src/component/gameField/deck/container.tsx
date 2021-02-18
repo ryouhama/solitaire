@@ -8,6 +8,7 @@ interface IProps {
 
 export const Deck: React.FC<IProps> = (props) => {
   const { deck } = props;
+  
   return (
     <DeckPresenter
       deck={deck}

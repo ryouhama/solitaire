@@ -23,7 +23,8 @@ img_size = {'vertical': 201, 'wide': 142}
 
 def main() -> None:
     argv_l_or_s_settig, argv_magnification, argv_resize_default_size = get_argv()
-    l_or_s_settig, magnification = validate(argv_l_or_s_settig, argv_magnification, argv_resize_default_size)
+    l_or_s_settig, magnification, resize_default_size = \
+        validate(argv_l_or_s_settig, argv_magnification, argv_resize_default_size)
     logging.info(log_bar * 6)
     logging.info(f'start card_img_resize')
     logging.info(f'l_or_s_settig: {l_or_s_settig}')
@@ -39,7 +40,7 @@ def get_argv() -> Tuple[str, str, str]:
     argv1 = sys.argv[1] if len_argv >= 2 and sys.argv[1] else ''
     argv2 = sys.argv[2] if len_argv >= 3 and sys.argv[2] else ''
     argv3 = sys.argv[3] if len_argv >= 4 and sys.argv[3] else ''
-    return argv1, argv2
+    return argv1, argv2, argv3
 
 def validate(argv_l_or_s_settig: str, argv_magnification: str, argv_resize_default_size: str) -> Tuple[str, int, str]:
     l_or_s_settig = 's' # default
@@ -55,7 +56,7 @@ def validate(argv_l_or_s_settig: str, argv_magnification: str, argv_resize_defau
         magnification = int(argv_magnification)
 
     # is_resize_default_size
-    if argv_resize_default_size == 'resize_default_size'
+    if argv_resize_default_size == 'resize_default_size':
         is_resize_default_size = True
 
     return l_or_s_settig, magnification, is_resize_default_size

@@ -19,7 +19,7 @@ const createOneTypeSuitCardList = (suit: ISuit): ICard[] => {
   return initList.map((num) => ({suit: suit, number: num}));
 };
 
-const getAllSuit = (): ISuit[] => {
+export const getAllSuit = (): ISuit[] => {
   return ['heart', 'clover', 'spade', 'diamond'];
 };
 
@@ -29,6 +29,10 @@ export const getCardImgPath = (card :ICard): string => {
 
 export const getBackSideCardImgPath = (): string => {
   return `${PUBLIC_URL}/image/card/back-side-card.png`;
+};
+
+export const getSetCardImgpath = (): string => {
+  return `${PUBLIC_URL}/image/card/set.png`;
 };
 
 export const getDeckAndTableCards = (cards: ICard[]): {'tablePile': ICard[][], 'deck': ICard[]} => {

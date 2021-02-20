@@ -1,4 +1,4 @@
-import { BackSideCard } from 'component/card/backSideCard';
+import { Card } from 'component/card';
 import React from 'react';
 import { ICard } from 'type/card';
 
@@ -15,12 +15,19 @@ export const DeckPresenter: React.FC<IProps> = (props) => {
     gridColumnEnd: 9,
     position: 'relative' as 'relative'
   };
+  const deckLength = deck.length;
 
   const renderDeckCard = (card: ICard, index: number) => {
+    const cardPositionStyle = {
+      zIndex: index + 1,
+      top: 0
+    };
     return (
-      <BackSideCard
+      <Card
         card={card}
-        zIndex={index + 1}
+        cardPositionStyle={cardPositionStyle}
+        isOpen={false}
+        isTop={index === deckLength - 1}
       />
     );
   };

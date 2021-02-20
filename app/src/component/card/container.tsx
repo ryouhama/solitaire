@@ -1,21 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ICard } from 'type/card';
-import { CardLayoutPresenter } from './presenter'
+import { FrontSideCardLayoutPresenter } from './frontSideCard/presenter';
+import { BackSideCardLayoutPresenter } from './backSideCard/presenter';
+
 
 interface IProps {
   card: ICard;
-  zIndex?: number;
-  top?: number;
+  cardPositionStyle: {
+    zIndex: number,
+    top: number
+  }
+  isOpen: boolean;
+  isTop: boolean;
 };
 
 export const CardLayout: React.FC<IProps> = (props) => {
-  const { card, zIndex, top } = props;
+  const { card, cardPositionStyle, isOpen, isTop } = props;
+  const [isOpenStatus, setOpenStatus] = useState(isOpen);
+  const [isTopPosition,] = useState(isTop);
+  const toggleCard = () => {
+    setOpenStatus(!isOpenStatus);
+  };
+  const onClick = () => {
+    if (isTopPosition) {
+      toggleCard();
+    }
+  };
 
   return (
-    <CardLayoutPresenter
-      card={card}
-      zIndex={zIndex ? zIndex : 1}
-      top={top ? top : 0}
-    />
+    <>
+    {isOpenStatus ? (
+      <FrontSideCardLayoutPresenter
+        card={card}
+        cardPositionStyle={cardPositionStyle}
+      />      
+    ) : (
+      <BackSideCardLayoutPresenter
+        card={card}
+        cardPositionStyle={cardPositionStyle}
+        onClick={onClick}
+      />
+    )}
+    </>
   );
 };

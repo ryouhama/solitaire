@@ -1,7 +1,6 @@
 import React from 'react';
 import { CARD_WIDTH_PX, CARD_HEIGHT_PX} from 'util/style';
 import { Card } from 'component/card';
-import { BackSideCard } from 'component/card/backSideCard';
 import { ICard } from 'type/card';
 
 interface IProps {
@@ -32,24 +31,20 @@ export const TablePilePresenter: React.FC<IProps> = (props) => {
     return (
       <div className={`table-pile-${index}`} key={`pile-${index}`} style={styleOfTablePile}>
         {cards.map((card, idx) => {
+          const isTop = idx === 0;
+          const cardPositionStyle = {
+            zIndex: isTop ? cardsLength : idx,
+            top: (isTop ? cardsLength : idx ) * 20
+          };
           return (
-            <>
-            {idx === 0 ? (
-              <Card
-                card={card}
-                zIndex={cardsLength}
-                top={cardsLength*20}
-              />
-              ) : (
-                <BackSideCard
-                  card={card}
-                  zIndex={idx}
-                  top={idx * 20}
-                />
-              )}
-            </>
-          );
-        })}
+            <Card
+              card={card}
+              cardPositionStyle={cardPositionStyle}
+              isOpen={isTop}
+              isTop={isTop}
+            />
+            );}
+          )}
       </div>
     );
   };

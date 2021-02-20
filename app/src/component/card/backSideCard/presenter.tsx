@@ -4,21 +4,26 @@ import { getBackSideCardImgPath} from 'util/cardManager';
 
 interface IProps {
   card: ICard;
-  zIndex: number;
-  top: number;
+  cardPositionStyle: {zIndex: number, top: number};
+  onClick: () => void;
 };
 
 export const BackSideCardLayoutPresenter: React.FC<IProps> = (props) => {
-  const { card, zIndex, top } = props;
+  const { card, cardPositionStyle, onClick } = props;
   const backSideCardPath = getBackSideCardImgPath();
   const style = {
     // as 'absolute' にしないとCSSPropertiesのcompileが通らない
     position: 'absolute' as 'absolute',
-    zIndex: zIndex,
-    top: top
+    zIndex: cardPositionStyle.zIndex,
+    top: cardPositionStyle.top
   };
 
   return (
-    <img src={backSideCardPath} alt={`back-side-card`} key={`${card.suit}-${card.number}`} style={style}/>
+    <div key={`${card.suit}-${card.number}`} 
+      style={style}
+      onClick={onClick}
+      >
+      <img src={backSideCardPath} alt={`back-side-card`}/>
+    </div>
   );
 };

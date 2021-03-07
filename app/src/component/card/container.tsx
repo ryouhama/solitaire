@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 import { ICard } from 'type/card';
 import { FrontSideCardLayoutPresenter } from './frontSideCard/presenter';
 import { BackSideCardLayoutPresenter } from './backSideCard/presenter';
@@ -22,13 +23,22 @@ export const CardLayout: React.FC<IProps> = (props) => {
   const toggleCard = () => {
     setOpenStatus(!isOpenStatus);
   };
-  const moveCardToOpenDeck = () => {
-
-  };
+  const [{ isDragging }, drag] = useDrag({
+    item: { type: 'card'},
+    collect: monitor => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  });
+  const [{ isOver }, drop] = useDrop({
+    accept: 'card',
+    drop: () => toggleCard(),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver()
+    })
+  });
   const onClick = () => {
     if (isTopPosition) {
       toggleCard();
-      moveCardToOpenDeck();
     }
     if (onClickOfDeckCard) {
       onClickOfDeckCard(card);
@@ -41,12 +51,14 @@ export const CardLayout: React.FC<IProps> = (props) => {
       <FrontSideCardLayoutPresenter
         card={card}
         cardPositionStyle={cardPositionStyle}
+        drag={drag}
       />      
     ) : (
       <BackSideCardLayoutPresenter
         card={card}
         cardPositionStyle={cardPositionStyle}
         onClick={onClick}
+        drop={drop}
       />
     )}
     </>

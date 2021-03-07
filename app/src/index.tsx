@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import './index.css';
 import { AppLayout } from './component/appLayout';
 import { GameField } from './component/gameField';
@@ -7,10 +9,12 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppLayout>
-      <p>this is children</p>
-      <GameField />
-    </AppLayout>
+    <DndProvider backend={HTML5Backend}>
+      <AppLayout>
+        <p>this is children</p>
+        <GameField />
+      </AppLayout>
+    </DndProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

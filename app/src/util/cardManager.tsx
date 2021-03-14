@@ -1,10 +1,14 @@
 import { ICard, ISuit } from 'type/card';
 
 
+const PUBLIC_URL = `${process.env.PUBLIC_URL}`;
 const CARD_NUMBER = 13;
 const DISP_TABLE_PILES_COUNT = 7;
 const TABLE_PILES_CARD_TOTAL_COUNT = 28;
-const PUBLIC_URL = `${process.env.PUBLIC_URL}`;
+
+const RED_SUITS = ['heart', 'diamond'];
+const BLACK_SIUIS = ['clover', ' spade'];
+
 
 export const createCardList = (): ICard[] => {
   let cardList: ICard[] = [];
@@ -56,4 +60,13 @@ export const patienceSort = (cards: ICard[]): ICard[][] => {
 export const randomSort = (cards: ICard[]): ICard[] => {
   const deepCopyedCards = cards.map(card => {return {suit: card.suit, number: card.number}});
   return deepCopyedCards.sort(() => {return Math.random() - 0.5});
+};
+
+export const isDifferentSuitType = (targetCard: ICard, chekedCard: ICard): boolean => {
+  return (targetCard.suit in RED_SUITS && chekedCard.suit in BLACK_SIUIS)
+      || (targetCard.suit in BLACK_SIUIS && chekedCard.suit in RED_SUITS);
+};
+
+export const is1LessCard = (targetCard: ICard, chekedCard: ICard): boolean => {
+  return chekedCard.number - targetCard.number === 1;
 };

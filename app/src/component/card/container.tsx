@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDrag, useDrop } from 'react-dnd';
+import { useDrag } from 'react-dnd';
 import { ICard } from 'type/card';
 import { FrontSideCardLayoutPresenter } from './frontSideCard/presenter';
 import { BackSideCardLayoutPresenter } from './backSideCard/presenter';
@@ -24,18 +24,17 @@ export const CardLayout: React.FC<IProps> = (props) => {
     setOpenStatus(!isOpenStatus);
   };
   const [{ isDragging }, drag] = useDrag({
-    item: { type: 'card'},
+    item: { type: 'card' , card: card},
     collect: monitor => ({
       isDragging: !!monitor.isDragging(),
     }),
   });
-  const [{ isOver }, drop] = useDrop({
-    accept: 'card',
-    drop: () => toggleCard(),
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver()
-    })
-  });
+  const canDraggable = (): boolean => {
+    return isTopPosition && isOpenStatus;
+  };
+  const canDroppable = () => {
+    // dragしているcardが自身のcardの色違い、かつ自身のcardより数字が1少ない
+  };
   const onClick = () => {
     if (isTopPosition) {
       toggleCard();
@@ -51,6 +50,7 @@ export const CardLayout: React.FC<IProps> = (props) => {
       <FrontSideCardLayoutPresenter
         card={card}
         cardPositionStyle={cardPositionStyle}
+        canDraggable={canDraggable}
         drag={drag}
       />      
     ) : (
@@ -58,7 +58,6 @@ export const CardLayout: React.FC<IProps> = (props) => {
         card={card}
         cardPositionStyle={cardPositionStyle}
         onClick={onClick}
-        drop={drop}
       />
     )}
     </>

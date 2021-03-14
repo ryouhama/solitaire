@@ -5,12 +5,16 @@ import { getCardImgPath} from 'util/cardManager';
 
 interface IProps {
   card: ICard;
-  cardPositionStyle: {zIndex: number, top: number};
-  drag: DragElementWrapper<DragSourceOptions>;
+  cardPositionStyle: {
+    zIndex: number;
+    top: number
+  };
+  canDraggable: () => boolean;
+  drag?: DragElementWrapper<DragSourceOptions>;
 };
 
 export const FrontSideCardLayoutPresenter: React.FC<IProps> = (props) => {
-  const { card, cardPositionStyle, drag } = props;
+  const { card, cardPositionStyle, canDraggable, drag } = props;
   const cardPath = getCardImgPath(card);
   const style = {
     // as 'absolute' にしないとCSSPropertiesのcompileが通らない
@@ -21,9 +25,10 @@ export const FrontSideCardLayoutPresenter: React.FC<IProps> = (props) => {
 
   return (
     <div
-      ref={drag}
+      ref={canDraggable() ? drag : undefined}
       key={`${card.suit}-${card.number}`}
-      style={style}>
+      style={style}
+    >
       <img src={cardPath} alt={`${card.suit}-${card.number}`}/>
     </div>
   );
